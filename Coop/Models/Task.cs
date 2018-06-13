@@ -4,6 +4,8 @@ namespace Coop.Models
 {
     public class Task
     {
+        public int Id { get; set; }
+
         public int? HouseId { get; set; }
         public House House { get; set; }
 
