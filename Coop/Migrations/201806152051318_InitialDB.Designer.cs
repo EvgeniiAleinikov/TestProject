@@ -7,13 +7,13 @@ namespace Coop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitDB : IMigrationMetadata
+    public sealed partial class InitialDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806131615318_InitDB"; }
+            get { return "201806152051318_InitialDB"; }
         }
         
         string IMigrationMetadata.Source

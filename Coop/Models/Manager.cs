@@ -8,7 +8,7 @@ namespace Coop.Models
 
         public ICollection<Company> Companys { get; set; }
 
-        public Manager ()
+        public Manager() : base("manager")
         {
             Companys = new List<Company>();
         }

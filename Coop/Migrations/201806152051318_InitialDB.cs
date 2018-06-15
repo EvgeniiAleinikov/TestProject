@@ -3,7 +3,7 @@ namespace Coop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitDB : DbMigration
+    public partial class InitialDB : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,7 @@ namespace Coop.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        data = c.DateTime(nullable: false),
+                        Date = c.DateTime(nullable: false),
                         ManagerId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -44,18 +44,21 @@ namespace Coop.Migrations
                         Patronymic = c.String(),
                         Email = c.String(),
                         PhoneNumber = c.String(),
+                        Role = c.String(),
                         Password = c.String(),
-                        HouseId = c.Int(),
+                        HouseRoomerId = c.Int(),
                         Number = c.Int(),
-                        HouseId1 = c.Int(),
+                        HouseWorkerId = c.Int(),
                         DOB = c.DateTime(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
+                        House_Id = c.Int(),
+                        House_Id1 = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Houses", t => t.HouseId)
-                .ForeignKey("dbo.Houses", t => t.HouseId1)
-                .Index(t => t.HouseId)
-                .Index(t => t.HouseId1);
+                .ForeignKey("dbo.Houses", t => t.House_Id)
+                .ForeignKey("dbo.Houses", t => t.House_Id1)
+                .Index(t => t.House_Id)
+                .Index(t => t.House_Id1);
             
             CreateTable(
                 "dbo.Tasks",
@@ -82,18 +85,18 @@ namespace Coop.Migrations
         {
             DropForeignKey("dbo.Companies", "ManagerId", "dbo.UserProfiles");
             DropForeignKey("dbo.Tasks", "WorkerId", "dbo.UserProfiles");
-            DropForeignKey("dbo.UserProfiles", "HouseId1", "dbo.Houses");
+            DropForeignKey("dbo.UserProfiles", "House_Id1", "dbo.Houses");
             DropForeignKey("dbo.Tasks", "RoomerId", "dbo.UserProfiles");
             DropForeignKey("dbo.Tasks", "HouseId", "dbo.Houses");
-            DropForeignKey("dbo.UserProfiles", "HouseId", "dbo.Houses");
+            DropForeignKey("dbo.UserProfiles", "House_Id", "dbo.Houses");
             DropForeignKey("dbo.Houses", "CompanyId", "dbo.Companies");
-            DropIndex("dbo.Companies", new[] { "ManagerId" });
             DropIndex("dbo.Tasks", new[] { "WorkerId" });
-            DropIndex("dbo.UserProfiles", new[] { "HouseId1" });
             DropIndex("dbo.Tasks", new[] { "RoomerId" });
             DropIndex("dbo.Tasks", new[] { "HouseId" });
-            DropIndex("dbo.UserProfiles", new[] { "HouseId" });
+            DropIndex("dbo.UserProfiles", new[] { "House_Id1" });
+            DropIndex("dbo.UserProfiles", new[] { "House_Id" });
             DropIndex("dbo.Houses", new[] { "CompanyId" });
+            DropIndex("dbo.Companies", new[] { "ManagerId" });
             DropTable("dbo.Tasks");
             DropTable("dbo.UserProfiles");
             DropTable("dbo.Houses");
