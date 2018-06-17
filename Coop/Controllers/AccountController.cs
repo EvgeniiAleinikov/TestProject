@@ -5,50 +5,26 @@ using System.Data.Entity;
 using System.Security.Claims;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
+using Coop.IRepository;
+using Coop.Repository;
 
 namespace Coop.Controllers
 {
     public class AccountController : Controller
     {
-        BaseContext db = new BaseContext();
+        UserProfileRepository repository;
+
+        public AccountController()
+        {
+            repository = new UserProfileRepository(new BaseContext());
+        }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
             {
                 return HttpContext.GetOwinContext().Authentication;
             }
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                UserProfile user = await db.Workers.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-
-                if (user == null)
-                {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
-                }
-                else
-                {
-                    ClaimsIdentity claim = ClaimCreate(user);
-
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    }, claim);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View(model);
         }
 
         public ClaimsIdentity ClaimCreate(UserProfile user)
@@ -63,9 +39,46 @@ namespace Coop.Controllers
             return claim;
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserProfile user = await repository.getUserProfile(model);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                }
+                else
+                {
+                    ClaimsIdentity claim = ClaimCreate(user);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(model);
+        }
+
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Registr(RegModel model)
+        {
+
             return RedirectToAction("Index", "Home");
         }
     }
