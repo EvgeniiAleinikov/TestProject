@@ -4,7 +4,7 @@ using System.Web.Security;
 using Coop.Models;
 using System.Data.Entity;
 
-namespace Coop.Provider
+namespace Coop.Providers
 {
     public class CustomRoleProvider : RoleProvider
     {
@@ -14,7 +14,7 @@ namespace Coop.Provider
             using (BaseContext db = new BaseContext())
             {
                 // Получаем пользователя
-                UserProfile user = db.UserProfiles.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
+                UserProfile user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
                 if (user != null && user.Role != null)
                 {
                     roles = new string[] { user.Role };
@@ -30,7 +30,7 @@ namespace Coop.Provider
         {
             using (BaseContext db = new BaseContext())
             { 
-                UserProfile user = db.UserProfiles.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
+                UserProfile user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
 
                 if (user != null && user.Role != null && user.Role == roleName)
                     return true;

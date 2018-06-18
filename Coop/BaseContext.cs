@@ -13,15 +13,20 @@ namespace Coop
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Roomer> Roomers { get; set; }
         public DbSet<Worker> Workers { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<House> Houses { get; set; }
 
+        public DbSet<UserProfile> Users { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserProfile>()
-                .Property(c => c.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Manager>().ToTable("Managers");
+            modelBuilder.Entity<Roomer>().ToTable("Roomers");
+            modelBuilder.Entity<Worker>().ToTable("Workers");
+            modelBuilder.Entity<Task>().ToTable("Tasks");
+            modelBuilder.Entity<House>().ToTable("Hauses");
+
+            modelBuilder.Entity<UserProfile>().ToTable("Users");
 
             base.OnModelCreating(modelBuilder);
         }
@@ -31,7 +36,7 @@ namespace Coop
     {
         protected override void Seed(BaseContext db)
         {
-            db.Managers.Add(new Manager { Id = 1, SurName = "Golovin", FirstName = "ALeks", Email = "Golova@tut.by", });
+            db.Managers.Add(new Manager { Id = 1, SurName = "Golovin", FirstName = "ALeks", Email = "Golova@tut.by", Password = "5121977" });
             db.Managers.Add(new Manager { Id = 1, SurName = "Gugin", FirstName = "Vania", Email = "Vitia@tut.by", });
             db.Managers.Add(new Manager { Id = 1, SurName = "Lozin", FirstName = "serg", Email = "Serg@tut.by", });
 

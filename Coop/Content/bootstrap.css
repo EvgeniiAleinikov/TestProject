@@ -4192,10 +4192,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-brand {
-  float: left;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
+    float: left;
+    padding: 15px 15px;
+    font-size: 40px;
+    line-height: 20px;
+    font-family: 'Facebook Letter Faces'
 }
 
 .navbar-brand:hover,
@@ -4398,18 +4399,21 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 
-.navbar-default .navbar-text {
-  color: #777777;
+.navbar-inverse .navbar-text {
+    color: #fff;
+    background-color: transparent;
 }
 
-.navbar-default .navbar-nav > li > a {
-  color: #777777;
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+    font-family: Arial;
+    font-size: 15px;
+    background-color: transparent;
 }
 
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #333333;
-  background-color: transparent;
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+        color: forestgreen;
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -4501,18 +4505,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+    background-color: #000;
+    border-color: #eeeeee;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+    color: #fff;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
-  background-color: transparent;
+    color: forestgreen;
+    background-color: transparent;
 }
 
 .navbar-inverse .navbar-text {

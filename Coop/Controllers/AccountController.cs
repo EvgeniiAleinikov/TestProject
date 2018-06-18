@@ -27,7 +27,7 @@ namespace Coop.Controllers
             }
         }
 
-        public ClaimsIdentity ClaimCreate(UserProfile user)
+        private ClaimsIdentity ClaimCreate(UserProfile user)
         {
             ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
@@ -44,13 +44,24 @@ namespace Coop.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                UserProfile user = await repository.getUserProfile(model);
+                UserProfile user = repository.getUserProfile(model);
 
                 if (user == null)
                 {
@@ -70,16 +81,11 @@ namespace Coop.Controllers
             return View(model);
         }
 
-        public ActionResult Logout()
+        [HttpPost]
+        public async Task<ActionResult> Register(RegModel model,string role)
         {
-            AuthenticationManager.SignOut();
+            repository.Create(new UserProfile(role,model));
             return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult Registr(RegModel model)
-        {
-
-            return RedirectToAction("Index", "Home");
-        }
+        }        
     }
 }

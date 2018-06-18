@@ -11,6 +11,7 @@ namespace Coop.Repository
     {
         public RoomerRepository(BaseContext context) : base(context)
         {
+
         }
     }
 }

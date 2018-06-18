@@ -14,9 +14,11 @@ namespace Coop.Repository
         public UserProfileRepository(BaseContext context) : base(context)
         {}
 
-        public Task<UserProfile> getUserProfile(LoginModel model)
+        public UserProfile getUserProfile(LoginModel model)
         {
-            return DbSet.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+            UserProfile user = DbSet.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+            return user;
         }
+
     }
 }

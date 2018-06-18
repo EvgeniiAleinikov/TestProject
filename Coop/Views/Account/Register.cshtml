@@ -1,4 +1,4 @@
-﻿@model Coop.Models.RegisterModel
+﻿@model RegModel
 
 @{
     ViewBag.Title = "Register";
@@ -24,9 +24,23 @@
         </div>
 
         <div>
-            Год рождения
+            Фамилия
             <div>
-                @Html.EditorFor(model => model.Year)
+                @Html.EditorFor(model =>model.Surname)
+            </div>
+        </div>
+
+        <div>
+            Имя
+            <div>
+                @Html.EditorFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div>
+            Отчество
+            <div>
+                @Html.EditorFor(model => model.Patronymic)
             </div>
         </div>
 
@@ -38,7 +52,7 @@
         </div>
 
         <div>
-            Подтвердить пароль
+            Повторить пароль
             <div>
                 @Html.EditorFor(model => model.PasswordConfirm)
             </div>
