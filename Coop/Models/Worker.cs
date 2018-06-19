@@ -9,9 +9,15 @@ namespace Coop.Models
         public House House { get; set; }
         
         public ICollection<Task> Tasks { get; set; }
+
         public Worker(): base("worker")   
         {
                 Tasks = new List<Task>();
+        }
+
+        public Worker(RegModel model) : base("worker",model)
+        {
+            Tasks = new List<Task>();
         }
     }   
 }

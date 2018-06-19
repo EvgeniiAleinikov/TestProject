@@ -15,5 +15,10 @@ namespace Coop.Models
         {
             Tasks = new List<Task>();
         }
+
+        public Roomer(RegModel model) : base("roomer",model)
+        {
+            Tasks = new List<Task>();
+        }
     }
 }

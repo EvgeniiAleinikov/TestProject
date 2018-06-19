@@ -10,5 +10,10 @@ namespace Coop.Models
         {
             Companys = new List<Company>();
         }
+
+        public Manager(RegModel model) : base("manager",model)
+        {
+            Companys = new List<Company>();
+        }
     }
 }

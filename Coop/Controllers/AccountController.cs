@@ -7,17 +7,14 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using Coop.IRepository;
 using Coop.Repository;
+using Coop.Models;
 
 namespace Coop.Controllers
 {
     public class AccountController : Controller
     {
-        UserProfileRepository repository;
-
         public AccountController()
-        {
-            repository = new UserProfileRepository(new BaseContext());
-        }
+        { }
 
         private IAuthenticationManager AuthenticationManager
         {
@@ -61,7 +58,8 @@ namespace Coop.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserProfile user = repository.getUserProfile(model);
+                UserProfileRepository repository = new UserProfileRepository(new BaseContext());
+                UserProfile user = await repository.getUserProfile(model);
 
                 if (user == null)
                 {
@@ -82,10 +80,14 @@ namespace Coop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegModel model,string role)
+        public ActionResult Register(RegModel model, string role)
         {
-            repository.Create(new UserProfile(role,model));
-            return RedirectToAction("Index", "Home");
-        }        
+            if (ModelState.IsValid)
+            {
+                model.RegUser(role);
+                return RedirectToAction("Login", "Account");
+            }
+            return View(model);
+        }
     }
 }

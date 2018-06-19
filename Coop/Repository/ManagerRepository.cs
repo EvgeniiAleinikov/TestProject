@@ -10,7 +10,6 @@ namespace Coop.Repository
     public class ManagerRepository : Repository<Manager>, IManagerRepository
     {
         public ManagerRepository(BaseContext context) : base(context)
-        {
-        }
+        { }
     }
 }

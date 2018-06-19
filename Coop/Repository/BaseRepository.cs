@@ -19,7 +19,7 @@ namespace Coop.Repository
             return DbSet.ToList();
         }
 
-        public virtual TModel GetById(int id)
+        public TModel GetById(int id)
         {
             return DbSet.Find(id);
         }

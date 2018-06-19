@@ -10,8 +10,6 @@ namespace Coop.Repository
     public class RoomerRepository : Repository<Roomer>, IRoomerRepository
     {
         public RoomerRepository(BaseContext context) : base(context)
-        {
-
-        }
+        { }
     }
 }

@@ -8,6 +8,6 @@ namespace Coop.IRepository
 {
     interface IUserProfileRepository: IRepository<UserProfile>
     {
-        UserProfile getUserProfile(LoginModel model);
+        Task<UserProfile> getUserProfile(LoginModel model);
     }
 }
