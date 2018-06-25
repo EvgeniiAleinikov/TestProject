@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Coop.Models
 {
-    public class Worker : UserProfile
+    public class Worker
     {
+        [Key]
+        [ForeignKey("UserProfile")]
+        public int Id { get; set; }
+
+        public UserProfile UserProfile { get; set; }
         public int? HouseWorkerId { get; set; }
         public House House { get; set; }
-        
         public ICollection<Task> Tasks { get; set; }
 
-        public Worker(): base("worker")   
-        {
-                Tasks = new List<Task>();
-        }
-
-        public Worker(RegModel model) : base("worker",model)
+        public Worker()
         {
             Tasks = new List<Task>();
         }
-    }   
+
+        public Worker(RegModel model)
+        {
+            Tasks = new List<Task>();
+        }
+    }
 }

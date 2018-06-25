@@ -13,7 +13,7 @@ namespace Coop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806180749156_Init"; }
+            get { return "201806251914118_Init"; }
         }
         
         string IMigrationMetadata.Source

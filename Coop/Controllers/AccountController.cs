@@ -31,8 +31,8 @@ namespace Coop.Controllers
             claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
             claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                 "OWIN Provider", ClaimValueTypes.String));
-            if (user.Role != null)
-                claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role, ClaimValueTypes.String));
+            foreach (string role in user.Roles)
+                claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, role, ClaimValueTypes.String));
             return claim;
         }
 

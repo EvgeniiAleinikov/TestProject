@@ -1,0 +1,19 @@
+﻿@model Coop.ViewModels.UserModel
+
+<div class="container">
+
+    <h2>Учетная запись</h2>
+    
+    <h4>Личные данные</h4>
+    <p>
+        <label for="surname">Фамилия</label><input type="text" id="surname" value="@Model.SurName" ><Br>
+        <label for="firstname">Имя</label><input type="text" id="firstname" value="@Model.FirstName" ><Br>
+        <label for="patronymic">Отчество</label><input type="text" id="patronymic" value="@Model.Patronymic" ><Br>
+        <label for="email">Электронная почта</label><input type="text" id="email" value="@Model.Email" >
+    </p >
+
+    <h4>Настройки конфиденцифльности</h4>
+    
+    <label for="">Отображать телефон</label><input type="submit" value=""><Br>
+
+</div>

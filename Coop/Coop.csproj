@@ -181,6 +181,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="BaseContext.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,9 +193,9 @@
     <Compile Include="IRepository\ITaskRepository.cs" />
     <Compile Include="IRepository\IUserProfileRepository.cs" />
     <Compile Include="IRepository\IWorkerRepository.cs" />
-    <Compile Include="Migrations\201806180749156_Init.cs" />
-    <Compile Include="Migrations\201806180749156_Init.Designer.cs">
-      <DependentUpon>201806180749156_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201806251914118_Init.cs" />
+    <Compile Include="Migrations\201806251914118_Init.Designer.cs">
+      <DependentUpon>201806251914118_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Roomer.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\IdentityExtensions.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Repository\WorkerRepository.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\RegModel.cs" />
+    <Compile Include="ViewModels\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Database.mdf" />
@@ -229,7 +232,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Compile Include="Models\TicketManager.cs" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -265,6 +267,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Profile\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -280,8 +283,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806180749156_Init.resx">
-      <DependentUpon>201806180749156_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806251914118_Init.resx">
+      <DependentUpon>201806251914118_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

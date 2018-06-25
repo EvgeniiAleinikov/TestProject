@@ -14,11 +14,8 @@ namespace Coop.Providers
             using (BaseContext db = new BaseContext())
             {
                 // Получаем пользователя
-                UserProfile user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
-                if (user != null && user.Role != null)
-                {
-                    roles = new string[] { user.Role };
-                }
+                UserProfile user = db.Users.FirstOrDefault(u => u.Email == username);
+                roles = user.Roles.ToArray();
                 return roles;
             }
         }
@@ -30,12 +27,9 @@ namespace Coop.Providers
         {
             using (BaseContext db = new BaseContext())
             { 
-                UserProfile user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
+                UserProfile user = db.Users.FirstOrDefault(u => u.Email == username);
 
-                if (user != null && user.Role != null && user.Role == roleName)
-                    return true;
-                else
-                    return false;
+                return user.Roles.Equals(roleName);
             }
         }
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)

@@ -5,7 +5,7 @@ using System.Security.Principal;
 
 namespace Coop.Models
 {
-    public static class TicketManager
+    public static class IdentityExtensions
     {
         public static T GetUserId<T>(this IIdentity identity) where T : IConvertible
         {
@@ -13,10 +13,10 @@ namespace Coop.Models
             {
                 throw new ArgumentNullException("identity");
             }
-            var claim = identity as ClaimsIdentity;
-            if (claim != null)
+            var ci = identity as ClaimsIdentity;
+            if (ci != null)
             {
-                var id = claim.FindFirst(ClaimTypes.NameIdentifier);
+                var id = ci.FindFirst(ClaimTypes.NameIdentifier);
                 if (id != null)
                 {
                     return (T)Convert.ChangeType(id.Value, typeof(T), CultureInfo.InvariantCulture);
@@ -30,13 +30,13 @@ namespace Coop.Models
             {
                 throw new ArgumentNullException("identity");
             }
-            var claim = identity as ClaimsIdentity;
+            var ci = identity as ClaimsIdentity;
             string role = "";
-            if (claim != null)
+            if (ci != null)
             {
-                var claimRole = claim.FindFirst(ClaimsIdentity.DefaultRoleClaimType);
-                if (claimRole != null)
-                    role = claimRole.Value;
+                var id = ci.FindFirst(ClaimsIdentity.DefaultRoleClaimType);
+                if (id != null)
+                    role = id.Value;
             }
             return role;
         }
