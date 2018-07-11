@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -28,6 +29,14 @@ namespace Coop.ViewModels
         [Display(Name = "Телефона")]
         public string PhoneNumber { get; set; }
 
+
+        public ICollection<Role> Roles{ get; set; }
+
+        internal void SetRoles(IQueryable<Role> queryable)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Password { get; set; }
 
         public UserModel(UserProfile profile)
@@ -37,6 +46,11 @@ namespace Coop.ViewModels
             Patronymic = profile.Patronymic;
             Email = profile.Email;
             PhoneNumber = profile.PhoneNumber;
+        }
+
+        public void SetRoles(ICollection<Role> roles)
+        {
+            Roles = roles;
         }
     }
 }

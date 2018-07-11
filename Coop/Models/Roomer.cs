@@ -22,9 +22,10 @@ namespace Coop.Models
             Tasks = new List<Task>();
         }
 
-        public Roomer(RegModel model)
+        public Roomer(RegModel model,UserProfile user)
         {
             Tasks = new List<Task>();
+            UserProfile = user;
         }
     }
 }

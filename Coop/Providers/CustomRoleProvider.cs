@@ -15,7 +15,10 @@ namespace Coop.Providers
             {
                 // Получаем пользователя
                 UserProfile user = db.Users.FirstOrDefault(u => u.Email == username);
-                roles = user.Roles.ToArray();
+                foreach ( var role in user.Roles)
+                {
+                    roles[roles.Length-1] = role.Name;
+                }
                 return roles;
             }
         }

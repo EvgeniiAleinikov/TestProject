@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Coop
 {
@@ -21,9 +22,9 @@ namespace Coop
         public DbSet<Worker> Workers { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<House> Houses { get; set; }
-
+        public DbSet<Role> Roles { get; set; }
         public DbSet<UserProfile> Users { get; set; }
-
+        
     }
 
     public class DbInitializer : DropCreateDatabaseAlways<BaseContext>
@@ -35,18 +36,30 @@ namespace Coop
             UserProfile user3 = new UserProfile { SurName = "Lozin", FirstName = "serg", Email = "Serg@tut.by", };
             UserProfile user4 = new UserProfile { SurName = "Solin", FirstName = "kst9", Email = "Koleno@tut.by", };
             UserProfile user5 = new UserProfile { SurName = "Adriva", FirstName = "Gena", Email = "ADriva@tut.by", };
-            UserProfile user6 = new UserProfile { Id = 1, SurName = "Dariborev", FirstName = "Lena", Email = "Dariib@tut.by", };
+            UserProfile user6 = new UserProfile { SurName = "Dariborev", FirstName = "Lena", Email = "Dariib@tut.by", };
 
             db.Users.AddRange(new List<UserProfile> { user1, user2, user3, user4, user5, user6 });
             db.SaveChanges();
 
             db.Managers.Add(new Manager { Id = user1.Id });
+            Role role1 = new Role { Name = "manager", UserProfile = user1 };
+            db.Roles.Add(role1);
+            db.SaveChanges();
 
+            var u = db.Users.FirstOrDefault(p => p.Id == user1.Id);
             db.Roomers.Add(new Roomer { Id = user1.Id } );
+            Role role2 = new Role { Name = "roomer", UserProfile = user1 };
+            db.Roles.Add(role2);
+            db.SaveChanges();
 
             db.Roomers.Add(new Roomer { Id = user2.Id });
+            Role role3 = new Role { Name = "roomer", UserProfile = user2 };
+            db.Roles.Add(role3);
+            db.SaveChanges();
 
             db.Workers.Add(new Worker { Id = user3.Id});
+            Role role4 = new Role { Name = "worker", UserProfile = user3 };
+            db.Roles.Add(role4);
             db.SaveChanges();
 
             base.Seed(db);

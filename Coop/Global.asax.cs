@@ -14,6 +14,8 @@ namespace Coop
         protected void Application_Start()
         {
             Database.SetInitializer(new DbInitializer());
+            BaseContext db = new BaseContext();
+            db.Database.Initialize(true);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

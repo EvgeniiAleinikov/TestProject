@@ -21,9 +21,10 @@ namespace Coop.Models
             Tasks = new List<Task>();
         }
 
-        public Worker(RegModel model)
+        public Worker(RegModel model,UserProfile user)
         {
             Tasks = new List<Task>();
+            UserProfile = user;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace Coop.IRepository
 {
     interface IUserProfileRepository: IRepository<UserProfile>
     {
-        Task<UserProfile> getUserProfile(LoginModel model);
+        UserProfile getUserProfile(LoginModel model);
+        UserModel GetUserById(int i);
+        bool IsValidEmail(RegModel regModel);
+
     }
 }

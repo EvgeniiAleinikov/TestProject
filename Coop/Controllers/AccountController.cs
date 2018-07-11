@@ -31,8 +31,8 @@ namespace Coop.Controllers
             claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
             claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                 "OWIN Provider", ClaimValueTypes.String));
-            foreach (string role in user.Roles)
-                claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, role, ClaimValueTypes.String));
+            foreach (var role in user.Roles)
+                claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Name, ClaimValueTypes.String));
             return claim;
         }
 
@@ -54,12 +54,12 @@ namespace Coop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel model)
+        public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
                 UserProfileRepository repository = new UserProfileRepository(new BaseContext());
-                UserProfile user = await repository.getUserProfile(model);
+                UserProfile user = repository.getUserProfile(model);
 
                 if (user == null)
                 {
@@ -84,8 +84,16 @@ namespace Coop.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.RegUser(role);
-                return RedirectToAction("Login", "Account");
+                if (new UserProfileRepository(new BaseContext()).IsValidEmail(model) == true)
+                {
+                    model.RegUser(role);
+                    Login(new LoginModel { Email = model.Email, Password = model.Password });
+                }
+                else
+                {
+                    ModelState.AddModelError("Email","Данная электронная почта уже занята!");
+                }
+                
             }
             return View(model);
         }

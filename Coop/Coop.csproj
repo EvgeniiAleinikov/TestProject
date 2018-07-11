@@ -197,10 +197,19 @@
     <Compile Include="Migrations\201806251914118_Init.Designer.cs">
       <DependentUpon>201806251914118_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807101500553_AddRole.cs" />
+    <Compile Include="Migrations\201807101500553_AddRole.Designer.cs">
+      <DependentUpon>201807101500553_AddRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807101537457_FixRole.cs" />
+    <Compile Include="Migrations\201807101537457_FixRole.Designer.cs">
+      <DependentUpon>201807101537457_FixRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Roomer.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\IdentityExtensions.cs" />
@@ -285,6 +294,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806251914118_Init.resx">
       <DependentUpon>201806251914118_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101500553_AddRole.resx">
+      <DependentUpon>201807101500553_AddRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101537457_FixRole.resx">
+      <DependentUpon>201807101537457_FixRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

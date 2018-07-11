@@ -17,7 +17,8 @@ namespace Coop.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 UserProfileRepository repo = new UserProfileRepository(new BaseContext());
-                return View(new UserModel(repo.GetById(User.Identity.GetUserId<int>())));
+                UserModel model = repo.GetUserById(User.Identity.GetUserId<int>());
+                return View(model);
             }
             return RedirectToAction("Register", "Account");
         }

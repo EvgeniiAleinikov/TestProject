@@ -2,6 +2,7 @@
 using Coop.Models;
 using Coop.Repository;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 public class RegModel
 {
@@ -37,26 +38,28 @@ public class RegModel
         Email = email;
     }
 
-    public UserProfile toUserProfile(string role, RegModel regModel)
+    public UserProfile toUserProfile(string role)
     {
-        return new UserProfile(role,regModel);
+        return new UserProfile(role,this);
     }
 
     public void RegUser(string role)
     {
+        UserProfileRepository userRepository = new UserProfileRepository(new BaseContext());
+        UserProfile user = this.toUserProfile(role);
+        userRepository.Create(user);
+
         switch (role)
         {
             case ("manager"):
-                ManagerRepository managerRepository = new ManagerRepository(new BaseContext());
-                managerRepository.Create(new Manager(this));
+                new ManagerRepository(new BaseContext()).Create(new Manager(this,user));
                 break;
             case ("worker"):
-                WorkerRepository workerRepository = new WorkerRepository(new BaseContext());
-                workerRepository.Create(new Worker(this));
+                new WorkerRepository(new BaseContext()).Create(new Worker(this,user));
                 break;
             case ("roomer"):
                 RoomerRepository roomerRepository = new RoomerRepository(new BaseContext());
-                roomerRepository.Create(new Roomer(this));
+                roomerRepository.Create(new Roomer(this,user));
                 break;
         }
     }
