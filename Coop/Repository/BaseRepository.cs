@@ -14,21 +14,28 @@ namespace Coop.Repository
             Context = context;
         }
 
-        public IEnumerable<TModel> GetAll()
+        public List<TModel> GetAll()
         {
             return DbSet.ToList();
         }
 
         public virtual TModel GetById(int id)
         {
-            var u = DbSet.Find(id);
-            return u;
+            var item = DbSet.Find(id);
+            return item;
         }
 
         public void Create(TModel item)
         {
             DbSet.Add(item);
             SaveChanges();
+        }
+
+        public void UpdateById(TModel model,int id)
+        {
+            var item = DbSet.Find(id);
+            item = model;
+            Context.SaveChanges();
         }
 
         public void Delete(TModel item)

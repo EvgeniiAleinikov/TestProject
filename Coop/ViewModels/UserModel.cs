@@ -32,12 +32,8 @@ namespace Coop.ViewModels
 
         public ICollection<Role> Roles{ get; set; }
 
-        internal void SetRoles(IQueryable<Role> queryable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Password { get; set; }
+        public UserModel()
+        { }
 
         public UserModel(UserProfile profile)
         {

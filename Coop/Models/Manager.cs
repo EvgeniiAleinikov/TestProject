@@ -20,7 +20,7 @@ namespace Coop.Models
             Companys = new List<Company>();
         }
 
-        public Manager(RegModel model,UserProfile user)
+        public Manager(UserProfile user)
         {
             Companys = new List<Company>();
             UserProfile = user;

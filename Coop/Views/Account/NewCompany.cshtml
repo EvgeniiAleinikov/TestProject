@@ -1,0 +1,56 @@
+﻿@model  Coop.ViewModels.NewCompany
+
+@{
+    ViewBag.Title = "NewCompany";
+}
+
+<h2>Создать кооператив</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <hr />
+        @Html.ValidationSummary(false)
+
+        <div>
+            Название кооператива
+            <div>
+                @Html.EditorFor(model => model.Name)
+            </div>
+        </div>
+
+        <div>
+            Пароль
+            <div>
+                @Html.EditorFor(model => model.Password)
+            </div>
+        </div>
+
+        <div>
+            Повторить пароль
+            <div>
+                @Html.EditorFor(model => model.PasswordConfirm)
+            </div>
+        </div>
+        
+        <div>
+            Какой аккаунт использовать для управления кооперативом?
+            <div>
+                @Html.RadioButton("model.New", "false")
+                <span>Текущий</span> <br />
+                @Html.RadioButton("model.New", "true")
+                <span>Создать новый</span> <br />
+            </div>
+        </div>
+
+        <div>
+
+            <div>
+                <input type="submit" value="Зарегистрировать" />
+            </div>
+        </div>
+    </div>
+}

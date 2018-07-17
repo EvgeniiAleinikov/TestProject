@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Coop.IRepository;
 using Coop.Repository;
 using Coop.Models;
+using Coop.ViewModels;
 
 namespace Coop.Controllers
 {
@@ -42,6 +43,11 @@ namespace Coop.Controllers
         }
 
         public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult NewCompany()
         {
             return View();
         }
@@ -84,7 +90,7 @@ namespace Coop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (new UserProfileRepository(new BaseContext()).IsValidEmail(model) == true)
+                if (new UserProfileRepository(new BaseContext()).IsValidEmail(model))
                 {
                     model.RegUser(role);
                     Login(new LoginModel { Email = model.Email, Password = model.Password });
@@ -96,6 +102,26 @@ namespace Coop.Controllers
                 
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult NewCompany(NewCompany companyData)
+        {
+            if (ModelState.IsValid)
+            {
+                CompanyRepository repo = new CompanyRepository(new BaseContext());
+                if (repo.IsValid(companyData))
+                {
+                    Manager user = new Manager(new UserProfileRepository(new BaseContext()).GetById(User.Identity.GetUserId<int>()));
+                    new ManagerRepository(new BaseContext()).Create(user);
+                    repo.Create(new Company(companyData),user);
+                }
+                else
+                {
+                    ModelState.AddModelError("Name", "Данное имя уже занято!");
+                }
+            }
+            return View(companyData);
         }
     }
 }

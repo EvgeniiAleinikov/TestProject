@@ -12,6 +12,5 @@ namespace Coop.IRepository
         UserProfile getUserProfile(LoginModel model);
         UserModel GetUserById(int i);
         bool IsValidEmail(RegModel regModel);
-
     }
 }

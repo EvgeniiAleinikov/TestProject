@@ -1,4 +1,5 @@
 ﻿using Coop.Models;
+using Coop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,5 +44,14 @@ public class UserProfile
     public void AddRole(Role role)
     {
         this.Roles.Add(role);
+    }
+
+    public UserProfile Update(UserModel model)
+    {
+        this.Email = model.Email;
+        this.SurName = model.SurName;
+        this.FirstName = model.FirstName;
+        this.Patronymic = model.Patronymic;
+        return this;
     }
 }

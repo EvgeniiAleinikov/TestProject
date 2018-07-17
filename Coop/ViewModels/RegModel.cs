@@ -52,14 +52,13 @@ public class RegModel
         switch (role)
         {
             case ("manager"):
-                new ManagerRepository(new BaseContext()).Create(new Manager(this,user));
+                new ManagerRepository(new BaseContext()).Create(new Manager(user));
                 break;
             case ("worker"):
-                new WorkerRepository(new BaseContext()).Create(new Worker(this,user));
+                new WorkerRepository(new BaseContext()).Create(new Worker(user));
                 break;
             case ("roomer"):
-                RoomerRepository roomerRepository = new RoomerRepository(new BaseContext());
-                roomerRepository.Create(new Roomer(this,user));
+                new RoomerRepository(new BaseContext()).Create(new Roomer(user));
                 break;
         }
     }

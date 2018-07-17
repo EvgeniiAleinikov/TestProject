@@ -205,6 +205,14 @@
     <Compile Include="Migrations\201807101537457_FixRole.Designer.cs">
       <DependentUpon>201807101537457_FixRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807161116186_AddCompanyPassword.cs" />
+    <Compile Include="Migrations\201807161116186_AddCompanyPassword.Designer.cs">
+      <DependentUpon>201807161116186_AddCompanyPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807161200038_FixManagerModel.cs" />
+    <Compile Include="Migrations\201807161200038_FixManagerModel.Designer.cs">
+      <DependentUpon>201807161200038_FixManagerModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\House.cs" />
@@ -226,7 +234,9 @@
     <Compile Include="Repository\TaskRepository.cs" />
     <Compile Include="Repository\UserProfileRepository.cs" />
     <Compile Include="Repository\WorkerRepository.cs" />
+    <Compile Include="ViewModels\CompanyModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
+    <Compile Include="ViewModels\NewCompany.cs" />
     <Compile Include="ViewModels\RegModel.cs" />
     <Compile Include="ViewModels\UserModel.cs" />
   </ItemGroup>
@@ -277,6 +287,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Profile\UserProfile.cshtml" />
+    <Content Include="Views\Account\NewCompany.cshtml" />
+    <Content Include="Views\Profile\MyCompanys.cshtml" />
+    <Content Include="Views\Profile\MyCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -300,6 +313,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807101537457_FixRole.resx">
       <DependentUpon>201807101537457_FixRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807161116186_AddCompanyPassword.resx">
+      <DependentUpon>201807161116186_AddCompanyPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807161200038_FixManagerModel.resx">
+      <DependentUpon>201807161200038_FixManagerModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,16 @@
+﻿@model List<Coop.ViewModels.CompanyModel>
+
+@{
+    ViewBag.Title = "MyCompanys";
+}
+
+<h2>MyCompanys</h2>
+
+<ul>
+    @foreach (var a in Model)
+    {
+        <li href="Profile/MyCompany/@a.Name">
+            @a.Name
+        </li>
+    }
+</ul>

@@ -12,15 +12,41 @@ namespace Coop.Controllers
 {
     public class ProfileController : Controller
     {
+        public ProfileController()
+        {   }
+
+        [HttpGet]
+        public ActionResult MyCompanys()
+        {
+            User.Identity.GetUserId<int>();
+            int id = new UserProfileRepository(new BaseContext()).GetById(User.Identity.GetUserId<int>()).Manager.Id;
+            List<Company> companys = new CompanyRepository(new BaseContext()).GetAll().Where(c => c.ManagerId == id).ToList();
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult MyCompany(string Name)
+        {
+            return View(new CompanyRepository(new BaseContext()).GetAll().FirstOrDefault(item => item.Name == Name));
+        }
+
+        [HttpGet]
         public ActionResult UserProfile()
         {
             if (User.Identity.IsAuthenticated)
             {
-                UserProfileRepository repo = new UserProfileRepository(new BaseContext());
-                UserModel model = repo.GetUserById(User.Identity.GetUserId<int>());
+                UserModel model = new UserProfileRepository(new BaseContext()).GetUserById(User.Identity.GetUserId<int>());
                 return View(model);
             }
             return RedirectToAction("Register", "Account");
+        }
+
+        [HttpPost]
+        public ActionResult UserProfile(UserModel newData)
+        {
+            new UserProfileRepository(new BaseContext()).UpdateById(new UserProfileRepository(new BaseContext())
+                .GetById(User.Identity.GetUserId<int>()).Update(newData),User.Identity.GetUserId<int>());
+            return View(newData);
         }
     }
 }
