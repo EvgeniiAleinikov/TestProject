@@ -1,0 +1,22 @@
+﻿@model List<Coop.ViewModels.CompanyModel>
+
+<form>
+    <select>
+        @foreach (var company in Model)
+        {
+            <optgroup label=@company.Name>
+                @foreach (var house in company.Houses)
+                {
+                    <option>@house.getAddress()</option>
+                }
+            </optgroup>
+        }
+    </select>
+
+    <input type="hidden" >
+    <input type="number">
+    <input type="password">
+    
+
+    <input type="submit" value="Отправить">
+</form>

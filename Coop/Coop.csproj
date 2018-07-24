@@ -213,6 +213,22 @@
     <Compile Include="Migrations\201807161200038_FixManagerModel.Designer.cs">
       <DependentUpon>201807161200038_FixManagerModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807181527399_ChangeHouseModel.cs" />
+    <Compile Include="Migrations\201807181527399_ChangeHouseModel.Designer.cs">
+      <DependentUpon>201807181527399_ChangeHouseModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807191119140_ChangeDelete.cs" />
+    <Compile Include="Migrations\201807191119140_ChangeDelete.Designer.cs">
+      <DependentUpon>201807191119140_ChangeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807231336046_ChangeProfileModel.cs" />
+    <Compile Include="Migrations\201807231336046_ChangeProfileModel.Designer.cs">
+      <DependentUpon>201807231336046_ChangeProfileModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807231514195_HouseModelFix.cs" />
+    <Compile Include="Migrations\201807231514195_HouseModelFix.Designer.cs">
+      <DependentUpon>201807231514195_HouseModelFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\House.cs" />
@@ -235,10 +251,14 @@
     <Compile Include="Repository\UserProfileRepository.cs" />
     <Compile Include="Repository\WorkerRepository.cs" />
     <Compile Include="ViewModels\CompanyModel.cs" />
+    <Compile Include="ViewModels\HouseModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\NewCompany.cs" />
     <Compile Include="ViewModels\RegModel.cs" />
+    <Compile Include="ViewModels\RoomerModel.cs" />
+    <Compile Include="ViewModels\SignInRoomerModel.cs" />
     <Compile Include="ViewModels\UserModel.cs" />
+    <Compile Include="ViewModels\WorkerModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Database.mdf" />
@@ -290,6 +310,8 @@
     <Content Include="Views\Account\NewCompany.cshtml" />
     <Content Include="Views\Profile\MyCompanys.cshtml" />
     <Content Include="Views\Profile\MyCompany.cshtml" />
+    <Content Include="Views\Profile\House.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -319,6 +341,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807161200038_FixManagerModel.resx">
       <DependentUpon>201807161200038_FixManagerModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807181527399_ChangeHouseModel.resx">
+      <DependentUpon>201807181527399_ChangeHouseModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807191119140_ChangeDelete.resx">
+      <DependentUpon>201807191119140_ChangeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231336046_ChangeProfileModel.resx">
+      <DependentUpon>201807231336046_ChangeProfileModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231514195_HouseModelFix.resx">
+      <DependentUpon>201807231514195_HouseModelFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

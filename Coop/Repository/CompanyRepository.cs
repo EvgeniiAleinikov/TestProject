@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Coop.Repository
 {
-    public class CompanyRepository: Repository<Company>, ICompanyRepository
+    public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
         public CompanyRepository(BaseContext context) : base(context)
         { }
@@ -18,10 +18,20 @@ namespace Coop.Repository
             return this.DbSet.FirstOrDefault(p => p.Name == newData.Name) == null;
         }
 
-        public void Create(Company company,Manager user)
+        public int CreateCompany(Company company, int id)
         {
-            company.SetManager(user);
+            if (Context.Managers.Find(id) == null)
+            {
+                Context.Managers.Add(new Manager { Id = id });
+                Role role1 = new Role { Name = "manager", UserProfile = Context.Users.Find(id) };
+                Context.Roles.Add(role1);
+                Context.SaveChanges();
+            }
+
+            company.SetManager(id);
             this.Create(company);
+
+            return DbSet.FirstOrDefault(u => u.Name == company.Name).Id;
         }
     }
 }

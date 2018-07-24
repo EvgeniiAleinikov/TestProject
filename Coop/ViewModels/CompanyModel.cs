@@ -11,17 +11,41 @@ namespace Coop.ViewModels
     {
         [Required]
         public string Name{ get; set; }
-        public DateTime Date{ get; set; }
-        public ICollection<House> Houses { get; set; }
+        public string Date{ get; set; }
+        public int Id { get; set; }
+        public ICollection<HouseModel> Houses { get; set; }
         public Manager Manager;
 
-        public CompanyModel(Manager manager,int numberCompany)
+        public CompanyModel(Company company)
         {
-            Manager = manager;
-            Company company = manager.Companys.ElementAt(numberCompany);
+            Id = company.Id;
             Name = company.Name;
-            Date = company.Date;
-            Houses = company.Houses;
+            Date = company.Date.ToString();
+            Houses = new List<HouseModel>();
+            foreach (var item in company.Houses)
+            {
+                Houses.Add(new HouseModel(item));
+            }
+        }
+
+        public static List<CompanyModel> GetCompanyModelList(Manager manager)
+        {
+            List<CompanyModel> list = new List<CompanyModel>();
+            foreach (var item in manager.Companys)
+            {
+                list.Add(new CompanyModel(item));
+            }
+            return list;
+        }
+
+        public static List<CompanyModel> GetCompanyModelList(List<Company> companys)
+        {
+            List<CompanyModel> list = new List<CompanyModel>();
+            foreach (var item in companys)
+            {
+                list.Add(new CompanyModel(item));
+            }
+            return list;
         }
     }
 }

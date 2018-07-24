@@ -18,16 +18,33 @@ namespace Coop.Controllers
         [HttpGet]
         public ActionResult MyCompanys()
         {
-            User.Identity.GetUserId<int>();
-            int id = new UserProfileRepository(new BaseContext()).GetById(User.Identity.GetUserId<int>()).Manager.Id;
-            List<Company> companys = new CompanyRepository(new BaseContext()).GetAll().Where(c => c.ManagerId == id).ToList();
-            return View();
+            var manager = new ManagerRepository(new BaseContext())
+                .CollectionLoadandGetById(User.Identity.GetUserId<int>(),"Companys");                    
+            //new ManagerRepository(new BaseContext()).CollectionLoad(manager,"Companys");
+
+            return View(CompanyModel.GetCompanyModelList(manager));
         }
 
         [HttpGet]
-        public ActionResult MyCompany(string Name)
+        public ActionResult MyCompany(int id)
         {
-            return View(new CompanyRepository(new BaseContext()).GetAll().FirstOrDefault(item => item.Name == Name));
+            var company = new CompanyRepository(new BaseContext())
+                .GetById(id);
+            new CompanyRepository(new BaseContext())
+                .CollectionLoad(company, "Houses");
+
+            var model = new CompanyModel(company);
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult House(int id)
+        {
+            House house = new HouseRepository(new BaseContext())
+                .GetById(id);
+            new HouseRepository(new BaseContext())
+                .DataLoad(house, new string[] { "Workers", "Roomers" });
+            return View(new HouseModel(house));
         }
 
         [HttpGet]
@@ -47,6 +64,28 @@ namespace Coop.Controllers
             new UserProfileRepository(new BaseContext()).UpdateById(new UserProfileRepository(new BaseContext())
                 .GetById(User.Identity.GetUserId<int>()).Update(newData),User.Identity.GetUserId<int>());
             return View(newData);
+        }
+
+        [HttpPost]
+        public ActionResult NewHouse(HouseModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ripo = new HouseRepository(new BaseContext());
+
+                if (ripo.IsUniqie(model))
+                {
+                    var house = new House(model, new CompanyRepository(new BaseContext()).GetById(model.Id));
+                    ripo.Create(house);
+                }
+                else
+                { 
+                    ModelState.AddModelError("Address", "Данный дом уже управляеться");
+                }
+            }
+
+            return Redirect("MyCompany/" + model.Id);
+
         }
     }
 }

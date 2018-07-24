@@ -29,9 +29,9 @@ namespace Coop.Models
             Password = companyDate.Password;
         }
 
-        public void SetManager(Manager manager)
+        public void SetManager(int id)
         {
-            Manager = manager;
+            ManagerId = id;
         }
     }
 

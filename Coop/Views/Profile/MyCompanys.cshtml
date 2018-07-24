@@ -9,8 +9,10 @@
 <ul>
     @foreach (var a in Model)
     {
-        <li href="Profile/MyCompany/@a.Name">
-            @a.Name
+        <li>
+            <a href="MyCompany/@a.Id">
+                @a.Name
+            </a>
         </li>
     }
 </ul>

@@ -42,6 +42,19 @@ namespace Coop.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SignIn(string s)
+        {
+            var company = new CompanyRepository(new BaseContext()).GetAll().ToList();
+
+            foreach(var item in company)
+            {
+                new CompanyRepository(new BaseContext()).CollectionLoad(item,"Houses");
+            }
+
+            return View(CompanyModel.GetCompanyModelList(company));
+        }
+
         public ActionResult Register()
         {
             return View();
@@ -112,9 +125,8 @@ namespace Coop.Controllers
                 CompanyRepository repo = new CompanyRepository(new BaseContext());
                 if (repo.IsValid(companyData))
                 {
-                    Manager user = new Manager(new UserProfileRepository(new BaseContext()).GetById(User.Identity.GetUserId<int>()));
-                    new ManagerRepository(new BaseContext()).Create(user);
-                    repo.Create(new Company(companyData),user);
+                    var id = repo.CreateCompany(new Company(companyData),User.Identity.GetUserId<int>());
+                    return Redirect("Account/MyCompany/"+id);
                 }
                 else
                 {
@@ -122,6 +134,12 @@ namespace Coop.Controllers
                 }
             }
             return View(companyData);
+        }
+
+        [HttpPost]
+        public ActionResult SignIn(LoginModel loginModel)
+        {
+            return View();
         }
     }
 }

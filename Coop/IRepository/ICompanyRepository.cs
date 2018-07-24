@@ -11,6 +11,6 @@ namespace Coop.IRepository
     interface ICompanyRepository:IRepository<Company>
     {
         bool IsValid(NewCompany newData);
-        void Create(Company company,Manager manager);
+        int CreateCompany(Company company,int id);
     }
 }

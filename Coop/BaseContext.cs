@@ -1,4 +1,5 @@
 ﻿using Coop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -42,24 +43,55 @@ namespace Coop
             db.SaveChanges();
 
             db.Managers.Add(new Manager { Id = user1.Id });
+
             Role role1 = new Role { Name = "manager", UserProfile = user1 };
             db.Roles.Add(role1);
             db.SaveChanges();
 
-            var u = db.Users.FirstOrDefault(p => p.Id == user1.Id);
-            db.Roomers.Add(new Roomer { Id = user1.Id } );
-            Role role2 = new Role { Name = "roomer", UserProfile = user1 };
+            db.Companys.Add(new Company
+            {
+                Date = DateTime.Now,
+                Name = "Lol",
+                Password = "123",
+                ManagerId = user1.Id,
+                Houses = new List<House>
+                {
+                    new House()
+                    {
+                        Country = "Беларусь",
+                        City = "Минск",
+                        Street = "Октября",
+                        HouseNumber = 12,
+                        NumberOfApartments = 120,
+                        Age = 10
+                    }
+                }
+            });
+
+            db.Managers.Add(new Manager { Id = user2.Id });
+            Role role2 = new Role { Name = "manager", UserProfile = user2 };
             db.Roles.Add(role2);
             db.SaveChanges();
+            db.Companys.Add(new Company
+            {
 
-            db.Roomers.Add(new Roomer { Id = user2.Id });
-            Role role3 = new Role { Name = "roomer", UserProfile = user2 };
-            db.Roles.Add(role3);
-            db.SaveChanges();
-
-            db.Workers.Add(new Worker { Id = user3.Id});
-            Role role4 = new Role { Name = "worker", UserProfile = user3 };
-            db.Roles.Add(role4);
+                Date = DateTime.Now,
+                Name = "Lol",
+                Password = "123",
+                ManagerId = user2.Id,
+                Houses = new List<House>
+                {
+                    new House()
+                    {
+                        Country = "Беларусь",
+                        City = "Витебск",
+                        Street = "Ленина",
+                        HouseNumber = 3,
+                        NumberOfApartments = 120,
+                        Age = 10
+                    }
+                }
+            });
             db.SaveChanges();
 
             base.Seed(db);
