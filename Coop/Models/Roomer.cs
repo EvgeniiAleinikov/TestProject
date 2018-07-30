@@ -17,7 +17,10 @@ namespace Coop.Models
         public House House { get; set; }
 
         public int Number { get; set; }
+
         public ICollection<Task> Tasks { get; set; }
+
+        public ICollection<Answer> Answers { get; set; }
 
         public Roomer()
         {

@@ -1,4 +1,5 @@
 ﻿using Coop.Models;
+using Coop.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,8 +30,14 @@ namespace Coop.ViewModels
         [Display(Name = "Телефона")]
         public string PhoneNumber { get; set; }
 
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        [Required]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [DataType(DataType.Password)]
+        public string PasswordConfirm { get; set; }
 
-        public ICollection<Role> Roles{ get; set; }
+        public ICollection<Role> Roles { get; set; }
 
         public UserModel()
         { }
@@ -42,6 +49,15 @@ namespace Coop.ViewModels
             Patronymic = profile.Patronymic;
             Email = profile.Email;
             PhoneNumber = profile.PhoneNumber;
+        }
+
+        public bool IsValidEmail()
+        {
+            if (new UserProfileRepository(new BaseContext()).IsValidEmail(Email))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void SetRoles(ICollection<Role> roles)

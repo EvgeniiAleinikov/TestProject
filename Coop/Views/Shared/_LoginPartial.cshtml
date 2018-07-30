@@ -4,21 +4,25 @@
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        <li class="btn-group nav">
-            <button type="button" class="btn navbar-btn" style="background-color:forestgreen">@User.Identity.Name</button>
-            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="@Url.Action("UserProfile", "Profile")">My Account</a></li>
-                <li><a href="@Url.Action("Logout", "Account")">Logout</a></li>
-            </ul>
-        </li>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="javascript:document.getElementById('logoutForm').submit()">
-                    Log off
+        
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <li class="nav-item dropdown show">
+                <a class="nav-link dropdown-toggle mr-md-2" data-toggle="dropdown">
+                    @User.Identity.Name
+                </a>
+                
+                <ul class="dropdown-menu" role="menu">
+                    <li class="nav-item">
+                        <a class="btn-link" href="@Url.Action("UserProfile", "Profile")">Профиль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn-link" href="@Url.Action("Logout", "Account")">Выйти</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">
+                    Выйти
                     <span class="glyphicon glyphicon-log-out"></span>
                 </a>
             </li>
@@ -28,16 +32,16 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href="@Url.Action("Register", "Account")">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Register", "Account")">
                 <span class="glyphicon glyphicon-registration-mark"></span>
-                Register
+                Регистрация
             </a>
         </li>
-        <li>
-            <a href="@Url.Action("Login", "Account")">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Login", "Account")">
                 <span class="glyphicon glyphicon-log-in"></span>
-                Login
+                Войти
             </a>
         </li>
     </ul>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coop.ViewModels;
+using System;
 
 namespace Coop.Models
 {
@@ -17,5 +18,17 @@ namespace Coop.Models
 
         public string Description { get; set; }
         public DateTime TaskDate { get; set; }
+
+        public Task(TaskModel model)
+        {
+            HouseId = model.HouseId;
+            RoomerId = model.RoomerId;
+            WorkerId = model.WorkerId;
+            Description = model.Description;
+            TaskDate = DateTime.Now;
+        }
+
+        public Task()
+        { }
     }
 }

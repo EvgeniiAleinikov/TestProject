@@ -1,31 +1,139 @@
 ﻿@model Coop.ViewModels.UserModel
 
 <div class="container">
-    @using (Html.BeginForm())
-    {
-        <h2>Учетная запись</h2>
-        <h4>Личные данные</h4>
-        <p>
-            <label for="surname">Фамилия</label>
-            @Html.EditorFor(model => model.SurName)<Br>
-            <label for="firstname">Имя</label>
-            @Html.EditorFor(model => model.FirstName)<Br>
-            <label for="patronymic">Отчество</label>
-            @Html.EditorFor(model => model.Patronymic)<Br>
-            <label for="email">Электронная почта</label>
-            @Html.EditorFor(model => model.Email)
-        </p>
-        <h4>Настройки конфиденцифльности</h4>
-        <input type="submit" value="Обновить данные"><Br>
-    }
+
+    <h4>Личные данные</h4>
+    <div class="accordion" id="accordionExample">
+        <form method="post" action="/Profile/UpdateName">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <div class="row">
+                        <div class="col-md-5 pt-2">
+                            Имя
+                        </div>
+                        <div class="col-md-5 pt-2">
+                            @Model.FirstName @Model.SurName @Model.Patronymic
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Изменить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="m-2">
+                                <label for="validationCustom01">
+                                    Фамилия
+                                </label>
+                                <input type="text" class="form-control" name="SurName" id="validationCustom01" placeholder="Фамилия" value=@Model.SurName required>
+                            </div>
+                            <div class="m-2">
+                                <label for="validationCustom02">
+                                    Имя
+                                </label>
+                                <input type="text" class="form-control" name="FirstName" id="validationCustom02" placeholder="Имя" value=@Model.FirstName required>
+                            </div>
+                            <div class="m-2">
+                                <label for="validationCustom03">
+                                    Отчество
+                                </label>
+                                <input type="text" class="form-control" name="Patronymic" id="validationCustom03" placeholder="Отчество" value=@Model.Patronymic required>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <input class="btn btn-primary" type="submit" value="Сохранить">
+                            <button class="btn btn-light">
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form method="post" action="/Profile/UpdateEmail">
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <div class="row">
+                        <div class="col-md-5 pt-2">
+                            Электронная почта
+                        </div>
+                        <div class="col-md-5 pt-2">
+                            @Model.Email
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Изменить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <label for="validationCustom04">
+                            Электронная почта
+                        </label>
+                        <input type="text" class="form-control" name="Email" placeholder="Электронная почта" value=@Model.Email required>
+                        <div class="mt-2">
+                            <input class="btn btn-primary" type="submit" value="Сохранить">
+                            <button class="btn btn-light">
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form method="post" action="/Profile/UpdatePassword">
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <div class="row">
+                        <div class="col-md-5 pt-2">
+                            Пароль
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                Новый пароль
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="m-2">
+                            <label for="validationCustom01">
+                                Новый пароль
+                            </label>
+                            <input type="password" class="form-control" name="Password" id="validationCustom01" placeholder="Пароль" required>
+                        </div>
+                        <div>
+                            <label for="validationCustom01">
+                                Повторить пароль
+                            </label>
+                            <input type="password" class="form-control" name="ConfirmPassword" id="validationCustom01" placeholder="Повторить пароль" required>
+                        </div>
+
+                        <div class="mt-2">
+                            <input class="btn btn-primary" type="submit" value="Сохранить">
+                            <button class="btn btn-light">
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <button onclick="location.href ='../Account/NewCompany'">
         Добавить кооператив
     </button>
     <button onclick="location.href ='../Profile/MyCompanys'">
         Управление кооперативом
     </button>
-    <button onclick="location.href ='../Account/SignIn/Roomer'">
-        Вход в комнату жильца
+    <button onclick="location.href ='../Account/SignIn'">
+        Вход в кооператив
     </button>
-
 </div>

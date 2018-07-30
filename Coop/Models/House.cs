@@ -25,8 +25,11 @@ namespace Coop.Models
         public ICollection<Worker> Workers { get; set; }
         public ICollection<Task> Tasks { get; set; }
 
+        public ICollection<Voting> Votings { get; set; }
+
         public House()
         {
+            Votings = new List<Voting>();
             Roomers = new List<Roomer>();
             Workers = new List<Worker>();
             Tasks = new List<Task>();
@@ -34,6 +37,7 @@ namespace Coop.Models
 
         public House(HouseModel model, Company company)
         {
+            Votings = new List<Voting>();
             Roomers = new List<Roomer>();
             Workers = new List<Worker>();
             Tasks = new List<Task>();

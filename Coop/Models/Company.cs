@@ -13,6 +13,7 @@ namespace Coop.Models
         public DateTime Date { get; set; }
         public string Password { get; set; }
         public ICollection<House> Houses{ get; set; }
+
         public Company()
         {
             Houses = new List<House>();

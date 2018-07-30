@@ -10,7 +10,7 @@ namespace Coop.IRepository
     interface IUserProfileRepository: IRepository<UserProfile>
     {
         UserProfile getUserProfile(LoginModel model);
-        UserModel GetUserById(int i);
-        bool IsValidEmail(RegModel regModel);
+        UserModel GetUserById(int id);
+        bool IsValidEmail(string Email);
     }
 }

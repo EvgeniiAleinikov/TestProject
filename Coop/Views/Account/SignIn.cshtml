@@ -1,22 +1,48 @@
 ﻿@model List<Coop.ViewModels.CompanyModel>
 
-<form>
-    <select>
-        @foreach (var company in Model)
-        {
-            <optgroup label=@company.Name>
-                @foreach (var house in company.Houses)
+<form method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    <ul>
+        <li>
+            Выберите дом
+        </li>
+        <li>
+            <select name="HouseId">
+                @foreach (var company in Model)
                 {
-                    <option>@house.getAddress()</option>
+                    <optgroup label=@company.Name>
+                        @foreach (var house in company.Houses)
+                        {
+                            <option value=@house.Id>@house.getAddress()</option>
+                        }
+                    </optgroup>
                 }
-            </optgroup>
-        }
-    </select>
+            </select>
+        </li>
+        <li> Номер квартиры </li>
+        <li>
+            <input type="number" name="ApartamentNumber">
+        </li>
 
-    <input type="hidden" >
-    <input type="number">
-    <input type="password">
-    
+        <li>
+            <input class="form-check-input" type="radio" name="IsRoomer" id="exampleRadios1" value="true" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                Default radio
+            </label>
 
-    <input type="submit" value="Отправить">
+            <input class="form-check-input" type="radio" name="IsRoomer" id="exampleRadios2" value="false">
+            <label class="form-check-label" for="exampleRadios2">
+                Second default radio
+            </label>
+        </li>
+        
+        <li> Пароль </li>
+        <li>
+            <input type="password" name="Password">
+        </li>
+        <li>
+            <input type="submit" value="Отправить">
+        </li>
+    </ul>
 </form>

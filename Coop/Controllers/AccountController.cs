@@ -43,16 +43,9 @@ namespace Coop.Controllers
         }
 
         [HttpGet]
-        public ActionResult SignIn(string s)
+        public ActionResult SignIn()
         {
-            var company = new CompanyRepository(new BaseContext()).GetAll().ToList();
-
-            foreach(var item in company)
-            {
-                new CompanyRepository(new BaseContext()).CollectionLoad(item,"Houses");
-            }
-
-            return View(CompanyModel.GetCompanyModelList(company));
+            return View(new CompanyRepository(new BaseContext()).getCompanyModels());
         }
 
         public ActionResult Register()
@@ -68,7 +61,7 @@ namespace Coop.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Start", "Home");
         }
 
         [HttpPost]
@@ -92,7 +85,7 @@ namespace Coop.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Start", "Home");
                 }
             }
             return View(model);
@@ -103,16 +96,16 @@ namespace Coop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (new UserProfileRepository(new BaseContext()).IsValidEmail(model))
+                if (new UserProfileRepository(new BaseContext()).IsValidEmail(model.Email))
                 {
                     model.RegUser(role);
                     Login(new LoginModel { Email = model.Email, Password = model.Password });
                 }
                 else
                 {
-                    ModelState.AddModelError("Email","Данная электронная почта уже занята!");
+                    ModelState.AddModelError("Email", "Данная электронная почта уже занята!");
                 }
-                
+
             }
             return View(model);
         }
@@ -125,8 +118,8 @@ namespace Coop.Controllers
                 CompanyRepository repo = new CompanyRepository(new BaseContext());
                 if (repo.IsValid(companyData))
                 {
-                    var id = repo.CreateCompany(new Company(companyData),User.Identity.GetUserId<int>());
-                    return Redirect("Account/MyCompany/"+id);
+                    var id = repo.CreateCompany(new Company(companyData), User.Identity.GetUserId<int>());
+                    return Redirect("Account/MyCompany/" + id);
                 }
                 else
                 {
@@ -137,9 +130,32 @@ namespace Coop.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn(LoginModel loginModel)
+        public ActionResult SignIn(SignInModel signInModel)
         {
-            return View();
+            var success = new HouseRepository(new BaseContext()).UserToHouse(signInModel, User.Identity.GetUserId<int>());
+
+            if (success.IsValid())
+            {
+                if (signInModel.IsRoomer)
+                {
+                    return RedirectToAction("RoomerProfile", "Profile");
+                }
+                else
+                {
+                    return RedirectToAction("WorkerProfile", "Profile");
+                }
+            }
+            else
+            {
+                if (!success.IsPasswordValid)
+                    ModelState.AddModelError("Password", "Неверный пароль");
+                if (!success.IsApartamentValid)
+                    ModelState.AddModelError("ApartamentNumber", "Комната уже выбрана");
+                if (!success.IsUserValid)
+                    ModelState.AddModelError("HouseId", "Этот пользователь уже выбрал комнату");
+
+                return View(new CompanyRepository(new BaseContext()).getCompanyModels());
+            }
         }
     }
 }

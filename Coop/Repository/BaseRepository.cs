@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace Coop.Repository
@@ -53,6 +54,11 @@ namespace Coop.Repository
             return item;
         }
 
+        public DbQuery<TModel> Include(string str)
+        {
+            return DbSet.Include(str);
+        }
+
         public void Create(TModel item)
         {
             DbSet.Add(item);
@@ -61,8 +67,7 @@ namespace Coop.Repository
 
         public void UpdateById(TModel model,int id)
         {
-            var item = DbSet.Find(id);
-            item = model;
+            Context.Entry(model).State = EntityState.Modified;
             Context.SaveChanges();
         }
 

@@ -1,0 +1,44 @@
+﻿@model Coop.ViewModels.RoomerModel
+
+@{
+    ViewBag.Title = "RoomerProfile";
+}
+
+<h2>Дом:</h2>
+<h4>Адрес</h4>
+<label>@Model.Country,г.@Model.City,ул.@Model.Street,д.@Model.HouseNumber к.@Model.RoomNumber</label>
+
+<form method="post">
+    <input type="hidden" name="HouseId" value=@Model.HouseId>
+    <input type="hidden" name="WorkerId" id="hiddenId" />
+
+    @foreach (var item in Model.Workers)
+    {
+        <div onclick=$('#hiddenId').val(@item.Id) value=@item.Id class="card" style="width:220px">
+            <h5 class="card-header">@item.Profession</h5>
+            <div class="card-body">
+                <h5 class="card-title">@item.UserProfile.FirstName @item.UserProfile.SurName @item.UserProfile.Patronymic </h5>
+                <p class="card-text">Телефон:</p>
+                <p class="card-text">@item.UserProfile.PhoneNumber</p>
+            </div>
+        </div>
+    }
+
+    @foreach (var worker in Model.Workers)
+    {
+        foreach (var task in worker.Tasks)
+        {
+            if (task.RoomerId == Model.RoomerId)
+            {
+                <div>
+                    @worker.UserProfile.FirstName @worker.UserProfile.SurName @task.TaskDate
+                </div>
+                <br>
+            }
+        }
+    }
+    <p>Описание проблемы</p>
+    <input type="text" name="Description" />
+    <input type="submit" value="Добавить описание" />
+
+</form>

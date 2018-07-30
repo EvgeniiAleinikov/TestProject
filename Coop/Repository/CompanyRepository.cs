@@ -33,5 +33,17 @@ namespace Coop.Repository
 
             return DbSet.FirstOrDefault(u => u.Name == company.Name).Id;
         }
+
+        public List<CompanyModel> getCompanyModels()
+        {
+            var company = new CompanyRepository(new BaseContext()).GetAll().ToList();
+
+            foreach (var item in company)
+            {
+                new CompanyRepository(new BaseContext()).CollectionLoad(item, "Houses");
+            }
+            return CompanyModel.GetCompanyModelList(company);
+        }
+
     }
 }

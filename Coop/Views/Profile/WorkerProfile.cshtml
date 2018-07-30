@@ -1,0 +1,18 @@
+﻿@model Coop.ViewModels.RoomerModel
+
+@{
+    ViewBag.Title = "WorkerProfile";
+}
+
+<h2>Дом:</h2>
+<h4>Адрес</h4>
+<label>@Model.Country,г.@Model.City,ул.@Model.Street,д.@Model.HouseNumber к.@Model.RoomNumber</label>
+
+@foreach (var item in Model.Tasks)
+{
+    <div>
+        <h2>@item.Roomer.Number</h2>
+        <br>
+        @item.Description
+    </div>
+}

@@ -13,14 +13,13 @@ namespace Coop.Controllers
     public class ProfileController : Controller
     {
         public ProfileController()
-        {   }
+        { }
 
         [HttpGet]
         public ActionResult MyCompanys()
         {
             var manager = new ManagerRepository(new BaseContext())
-                .CollectionLoadandGetById(User.Identity.GetUserId<int>(),"Companys");                    
-            //new ManagerRepository(new BaseContext()).CollectionLoad(manager,"Companys");
+                .CollectionLoadandGetById(User.Identity.GetUserId<int>(), "Companys");
 
             return View(CompanyModel.GetCompanyModelList(manager));
         }
@@ -59,12 +58,56 @@ namespace Coop.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfile(UserModel newData)
+        public ActionResult UpdateName(NameModel newData)
         {
+            if (ModelState.IsValid)
+            {
+                if (false)// newData.IsValidEmail()
+                {
+                    ModelState.AddModelError("Email", "Данная электронная почта уже занята!");
+                }
+            }
+            
             new UserProfileRepository(new BaseContext()).UpdateById(new UserProfileRepository(new BaseContext())
-                .GetById(User.Identity.GetUserId<int>()).Update(newData),User.Identity.GetUserId<int>());
-            return View(newData);
+                .GetById(User.Identity.GetUserId<int>()).UpdateName(newData), User.Identity.GetUserId<int>());
+            
+            return Redirect("UserProfile");
         }
+
+        [HttpPost]
+        public ActionResult UpdateEmail(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                if (false)//newData.IsValidEmail()
+                {
+                    ModelState.AddModelError("Email", "Данная электронная почта уже занята!");
+                }
+            }
+            
+            new UserProfileRepository(new BaseContext()).UpdateById(new UserProfileRepository(new BaseContext())
+                .GetById(User.Identity.GetUserId<int>()).UpdateEmail(email), User.Identity.GetUserId<int>());
+
+            return Redirect("UserProfile");
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(PasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (false)//newData.IsValidEmail()
+                {
+                    ModelState.AddModelError("Email", "Данная электронная почта уже занята!");
+                }
+            }
+
+            new UserProfileRepository(new BaseContext()).UpdateById(new UserProfileRepository(new BaseContext())
+                .GetById(User.Identity.GetUserId<int>()).UpdatePassword(model.Password), User.Identity.GetUserId<int>());
+
+            return Redirect("UserProfile");
+        }
+
 
         [HttpPost]
         public ActionResult NewHouse(HouseModel model)
@@ -79,13 +122,46 @@ namespace Coop.Controllers
                     ripo.Create(house);
                 }
                 else
-                { 
+                {
                     ModelState.AddModelError("Address", "Данный дом уже управляеться");
                 }
             }
 
             return Redirect("MyCompany/" + model.Id);
 
+        }
+
+        [HttpGet]
+        public ActionResult RoomerProfile()
+        {
+            var roomerModel = new RoomerRepository(new BaseContext())
+                .getRoomerModel(User.Identity.GetUserId<int>());
+
+            return View(roomerModel);
+        }
+
+        [HttpPost]
+        public ActionResult RoomerProfile(TaskModel model)
+        {
+            model.RoomerId = User.Identity.GetUserId<int>();
+            new TaskRepository(new BaseContext()).Create(new Task(model));
+
+            return RoomerProfile();
+        }
+
+        [HttpGet]
+        public ActionResult WorkerProfile()
+        {
+            var workerModel = new WorkerRepository(new BaseContext())
+                .getWorkerModel(User.Identity.GetUserId<int>());
+
+            return View(workerModel);
+        }
+
+        [HttpPost]
+        public ActionResult WorkerProfile(int SetReadyId)
+        {
+            return RoomerProfile();
         }
     }
 }

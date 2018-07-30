@@ -48,6 +48,16 @@ namespace Coop
             db.Roles.Add(role1);
             db.SaveChanges();
 
+            var house = new House()
+            {
+                Country = "Беларусь",
+                City = "Минск",
+                Street = "Октября",
+                HouseNumber = 12,
+                NumberOfApartments = 120,
+                Age = 10
+            };
+
             db.Companys.Add(new Company
             {
                 Date = DateTime.Now,
@@ -56,15 +66,7 @@ namespace Coop
                 ManagerId = user1.Id,
                 Houses = new List<House>
                 {
-                    new House()
-                    {
-                        Country = "Беларусь",
-                        City = "Минск",
-                        Street = "Октября",
-                        HouseNumber = 12,
-                        NumberOfApartments = 120,
-                        Age = 10
-                    }
+                    house
                 }
             });
 
@@ -91,6 +93,13 @@ namespace Coop
                         Age = 10
                     }
                 }
+            });
+            db.SaveChanges();
+
+            db.Workers.Add(new Worker {
+                HouseId = house.Id,
+                Id = user1.Id,
+                Profession = "Электрик"
             });
             db.SaveChanges();
 

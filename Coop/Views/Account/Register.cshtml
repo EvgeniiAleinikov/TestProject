@@ -4,77 +4,52 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Регистрация</h2>
-
+<label>Регистрация</label>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div>
-        <h4>Регистрация пользователя</h4>
-        <hr />
-        @Html.ValidationSummary(false)
-
-        <div>
-            Электронный адрес
+    @Html.ValidationSummary(false)
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="inputSurName">Фамилия</label>
             <div>
-                @Html.EditorFor(model => model.Email)
+                <input type="text" id="inputSurName" class="form-control" placeholder="Фамилия" name="Surname" />
             </div>
         </div>
-
-        <div>
-            Фамилия
+        <div class="form-group col-md-3">
+            <label for="inputFirstName">Имя</label>
             <div>
-                @Html.EditorFor(model => model.Surname)
+                <input type="text" id="inputFirstName" class="form-control" placeholder="Имя" name="FirstName" />
             </div>
         </div>
-
-        <div>
-            Имя
+        <div class="form-group col-md-3">
+            <label for="inputPatronymic">Отчество</label>
             <div>
-                @Html.EditorFor(model => model.FirstName)
-            </div>
-        </div>
-
-        <div>
-            Отчество
-            <div>
-                @Html.EditorFor(model => model.Patronymic)
-            </div>
-        </div>
-
-        <div>
-            Пароль
-            <div>
-                @Html.EditorFor(model => model.Password)
-            </div>
-        </div>
-
-        <div>
-            Повторить пароль
-            <div>
-                @Html.EditorFor(model => model.PasswordConfirm)
-            </div>
-        </div>
-
-        <div>
-            Вы в кооперативе:
-            <div>
-                @Html.RadioButton("role", "manager")
-                <span>Глава кооператива</span> <br />
-                @Html.RadioButton("role", "worker")
-                <span>Работник кооператива</span> <br />
-                @Html.RadioButton("role", "roomer", true)
-                <span>Жилец</span>
-            </div>
-        </div>
-
-        <div>
-
-            <div>
-                <input type="submit" value="Зарегистрировать" />
+                <input type="text" id="inputPatronymic" class="form-control" placeholder="Отчество" name="Patronymic" />
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="inputEmail">Электронная Почта</label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Email" name="Email" />
+    </div>
+
+    <div class="form-group">
+        <label for="inputPassword">Пароль</label>
+            <input type="text" id="inputPassword" class="form-control" placeholder="Пароль" name="Password" />
+    </div>
+
+    <div class="form-group">
+        <label for="inputPasswordConfirm">Повторить пароль</label>
+        <div>
+            <input type="text" id="inputPasswordConfirm" class="form-control" placeholder="Пароль" name="PasswordConfirm" />
+        </div>
+    </div>
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Зарегистрировать" />
+    </div>
+
 }

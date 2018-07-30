@@ -18,7 +18,6 @@ namespace Coop.Repository
         public UserProfile getUserProfile(LoginModel model)
         {
             UserProfile user = Context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-            user.Roles = Context.Roles.Where(r => r.UserProfileId == user.Id).ToList();
             return user;
         }
 
@@ -37,9 +36,9 @@ namespace Coop.Repository
             Context.SaveChanges();
         }
 
-        public bool IsValidEmail(RegModel regModel)
+        public bool IsValidEmail(string Email)
         {
-            return this.DbSet.FirstOrDefault(p => p.Email == regModel.Email)==null;
+            return this.DbSet.FirstOrDefault(p => p.Email == Email)==null;
         }
     }
 }

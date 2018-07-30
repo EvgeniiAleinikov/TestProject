@@ -46,12 +46,23 @@ public class UserProfile
         this.Roles.Add(role);
     }
 
-    public UserProfile Update(UserModel model)
+    public UserProfile UpdateName(NameModel model)
     {
-        this.Email = model.Email;
         this.SurName = model.SurName;
         this.FirstName = model.FirstName;
         this.Patronymic = model.Patronymic;
+        return this;
+    }
+
+    public UserProfile UpdateEmail(string email)
+    {
+        this.Email = email;
+        return this;
+    }
+
+    public UserProfile UpdatePassword(string Password)
+    {
+        this.Password = Password;
         return this;
     }
 }

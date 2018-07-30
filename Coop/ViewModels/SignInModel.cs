@@ -10,9 +10,9 @@ namespace Coop.ViewModels
     {
         public bool IsRoomer { get; set; }
         [Required]
-        public string Name { get; set; }
+        public int ApartamentNumber { get; set; }
         [Required]
-        public string HouseId { get; set; }
+        public int HouseId { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }

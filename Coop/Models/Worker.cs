@@ -13,6 +13,8 @@ namespace Coop.Models
 
         public UserProfile UserProfile { get; set; }
 
+        public string Profession { get; set; }
+        
         public int? HouseId { get; set; }
         public House House { get; set; }
         public ICollection<Task> Tasks { get; set; }
